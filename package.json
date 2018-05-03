@@ -1,0 +1,36 @@
+{
+  "name": "nlp100JS",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "shino <harimanmon@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "csv-parse": "^2.2.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jest": "^21.15.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.4.3",
+    "lodash": "^4.17.5",
+    "power-assert": "^1.5.0",
+    "prettier": "^1.11.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "fmt": "eslint --fix './**/*.js'",
+    "build": "babel src -d dist --ignore *.test.js",
+    "exec": "yarn build && node './dist/index.js'"
+  },
+  "jest": {
+    "verbose": true
+  }
+}
