@@ -5,6 +5,7 @@ const {
   explicitStr,
   concatMutually,
   wordLengthList,
+  wordLengthHash,
 } = require('./ch01')
 
 describe('ch01', () => {
@@ -37,9 +38,37 @@ describe('ch01', () => {
     })
   })
   describe('04. 元素記号', () => {
-    test(`"Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."という文を単語に分解し，
+    test.only(`"Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."という文を単語に分解し，
     1, 5, 6, 7, 8, 9, 15, 16, 19番目の単語は先頭の1文字，それ以外の単語は先頭に2文字を取り出し，取り出した文字列から単語の位置（先頭から何番目の単語か）への連想配列（辞書型もしくはマップ型）を作成せよ．`, () => {
-      assert.fail()
+      const given =
+        'Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can.'
+      const expected = {
+        '1': 'H',
+        '10': 'Ne',
+        '11': 'Na',
+        '12': 'Mi',
+        '13': 'Al',
+        '14': 'Si',
+        '15': 'P',
+        '16': 'S',
+        '17': 'Cl',
+        '18': 'Ar',
+        '19': 'K',
+        '2': 'He',
+        '20': 'Ca',
+        '3': 'Li',
+        '4': 'Be',
+        '5': 'B',
+        '6': 'C',
+        '7': 'N',
+        '8': 'O',
+        '9': 'F',
+      }
+
+      assert.deepStrictEqual(
+        wordLengthHash(given, 1, 5, 6, 7, 8, 9, 15, 16, 19),
+        expected,
+      )
     })
   })
   describe('05. n-gram', () => {

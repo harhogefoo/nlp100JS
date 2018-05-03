@@ -15,7 +15,19 @@ export const concatMutually = (str1, str2) => {
   return result
 }
 
-export const wordLengthList = sentences => {
-  const wordList = sentences.replace(/[,.]/g, '').split(' ')
+export const wordLengthList = sentence => {
+  const wordList = sentence.replace(/[,.]/g, '').split(' ')
   return wordList.map(w => w.length)
+}
+
+export const wordLengthHash = (sentence, ...index) => {
+  const wordList = sentence.replace(/[,.]/g, '').split(' ')
+  const result = {}
+  wordList.forEach((word, i) => {
+    result[i + 1] = word.slice(0, 2)
+  })
+  index.forEach(i => {
+    result[i] = result[i].charAt(0)
+  })
+  return result
 }
