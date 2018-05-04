@@ -114,3 +114,18 @@ export const cipher = (diffCode = 219, pattern = '^[a-z]+$') => {
     decrypt: str => fn(str),
   }
 }
+
+export const typoglycemia = sentence => {
+  const wordList = sentence.split(' ')
+  return wordList.map(word => {
+    if (word.length <= 4) {
+      return word
+    } else {
+      const charList = word.split('')
+      const prefix = charList.shift()
+      const suffix = charList.pop()
+      const shuffled = _.shuffle(charList)
+      return `${prefix}${shuffled.join('')}${suffix}`
+    }
+  }).join(' ')
+}
