@@ -6,6 +6,8 @@ const {
   concatMutually,
   wordLengthList,
   wordLengthHash,
+  convertBiGramByWord,
+  convertBiGramByChar,
 } = require('./ch01')
 
 describe('ch01', () => {
@@ -38,7 +40,7 @@ describe('ch01', () => {
     })
   })
   describe('04. 元素記号', () => {
-    test.only(`"Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."という文を単語に分解し，
+    test(`"Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."という文を単語に分解し，
     1, 5, 6, 7, 8, 9, 15, 16, 19番目の単語は先頭の1文字，それ以外の単語は先頭に2文字を取り出し，取り出した文字列から単語の位置（先頭から何番目の単語か）への連想配列（辞書型もしくはマップ型）を作成せよ．`, () => {
       const given =
         'Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can.'
@@ -64,7 +66,6 @@ describe('ch01', () => {
         '8': 'O',
         '9': 'F',
       }
-
       assert.deepStrictEqual(
         wordLengthHash(given, 1, 5, 6, 7, 8, 9, 15, 16, 19),
         expected,
@@ -72,8 +73,27 @@ describe('ch01', () => {
     })
   })
   describe('05. n-gram', () => {
-    test('与えられたシーケンス（文字列やリストなど）からn-gramを作る関数を作成せよ．この関数を用い，"I am an NLPer"という文から単語bi-gram，文字bi-gramを得よ．', () => {
-      assert.fail()
+    describe('与えられたシーケンス（文字列やリストなど）からn-gramを作る関数を作成せよ．この関数を用い，"I am an NLPer"という文から単語bi-gram，文字bi-gramを得よ．', () => {
+      test('単語bi-gram', () => {
+        const given = 'I am an NLPer'
+        const expect = [['I', 'am'], ['am', 'an'], ['an', 'NLPer']]
+        assert.deepStrictEqual(convertBiGramByWord(given), expect)
+      })
+      test('文字bi-gram', () => {
+        const given = 'I am an NLPer'
+        const expect = [
+          ['I', 'a'],
+          ['a', 'm'],
+          ['m', 'a'],
+          ['a', 'n'],
+          ['n', 'N'],
+          ['N', 'L'],
+          ['L', 'P'],
+          ['P', 'e'],
+          ['e', 'r'],
+        ]
+        assert.deepStrictEqual(convertBiGramByChar(given), expect)
+      })
     })
   })
   describe('06. 集合', () => {
