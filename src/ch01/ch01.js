@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 /// ////////////////////
 // private
 
@@ -43,22 +45,49 @@ export const wordLengthHash = (sentence, ...index) => {
   return result
 }
 
-export const convertBiGramByWord = sentence => {
+export const convertBiGramByWord = (
+  sentence,
+  options = {
+    isFormatArray: true,
+  },
+) => {
   const wordList = splitSentence(sentence)
   let currentWord = wordList.shift()
   return wordList.map(word => {
-    const biGram = [currentWord, word]
+    const biGram = options.isFormatArray
+      ? [currentWord, word]
+      : `${currentWord}-${word}`
     currentWord = word
     return biGram
   })
 }
 
-export const convertBiGramByChar = sentence => {
+export const convertBiGramByChar = (
+  sentence,
+  options = {
+    isFormatArray: true,
+  },
+) => {
   const charList = excludeString(sentence, '[,.\\s]').split('')
   let currentChar = charList.shift()
   return charList.map(char => {
-    const biGram = [currentChar, char]
+    const biGram = options.isFormatArray
+      ? [currentChar, char]
+      : `${currentChar}-${char}`
     currentChar = char
     return biGram
   })
 }
+
+export const hasBiGram = (targetStr, ...biGramArrays) => {
+  const results = biGramArrays.map(biGramArray => biGramArray.includes(targetStr))
+  // 全てのresults内がtrueならばtrueを返す
+  // 少なくとも１つfalseが存在すればfalseを返す
+  return !results.includes(false)
+}
+
+export const union = (x, y) => _.union(x, y)
+
+export const intersection = (x, y) => _.intersection(x, y)
+
+export const difference = (x, y) => _.difference(x, y)

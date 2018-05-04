@@ -20,7 +20,7 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "jest": "^22.4.3",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.10",
     "power-assert": "^1.5.0",
     "prettier": "^1.11.1"
   },

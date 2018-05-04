@@ -8,6 +8,10 @@ const {
   wordLengthHash,
   convertBiGramByWord,
   convertBiGramByChar,
+  union,
+  intersection,
+  difference,
+  hasBiGram,
 } = require('./ch01')
 
 describe('ch01', () => {
@@ -97,8 +101,94 @@ describe('ch01', () => {
     })
   })
   describe('06. 集合', () => {
-    test(`"paraparaparadise"と"paragraph"に含まれる文字bi-gramの集合を，それぞれ, XとYとして求め，XとYの和集合，積集合，差集合を求めよ．さらに，'se'というbi-gramがXおよびYに含まれるかどうかを調べよ．`, () => {
-      assert.fail()
+    describe(`"paraparaparadise"と"paragraph"に含まれる文字bi-gramの集合を，それぞれ, XとYとして求め，XとYの和集合，積集合，差集合を求めよ．さらに，'se'というbi-gramがXおよびYに含まれるかどうかを調べよ．`, () => {
+      describe('文字bi-gram', () => {
+        test('文字bi-gram: paraparaparadise', () => {
+          const given = 'paraparaparadise'
+          const expect = [
+            'p-a',
+            'a-r',
+            'r-a',
+            'a-p',
+            'p-a',
+            'a-r',
+            'r-a',
+            'a-p',
+            'p-a',
+            'a-r',
+            'r-a',
+            'a-d',
+            'd-i',
+            'i-s',
+            's-e',
+          ]
+
+          assert.deepStrictEqual(
+            convertBiGramByChar(given, { isFormatArray: false }),
+            expect,
+          )
+        })
+        test('文字bi-gram: paragraph', () => {
+          const given = 'paragraph'
+          const expect = [
+            'p-a',
+            'a-r',
+            'r-a',
+            'a-g',
+            'g-r',
+            'r-a',
+            'a-p',
+            'p-h',
+          ]
+          assert.deepStrictEqual(
+            convertBiGramByChar(given, { isFormatArray: false }),
+            expect,
+          )
+        })
+      })
+      describe('集合', () => {
+        let x
+        let y
+        beforeEach(() => {
+          x = convertBiGramByChar('paraparaparadise', { isFormatArray: false })
+          y = convertBiGramByChar('paragraph', { isFormatArray: false })
+        })
+        test('和集合', () => {
+          const given = union(x, y)
+          const expect = [
+            'p-a',
+            'a-r',
+            'r-a',
+            'a-p',
+            'a-d',
+            'd-i',
+            'i-s',
+            's-e',
+            'a-g',
+            'g-r',
+            'p-h',
+          ]
+          assert.deepStrictEqual(given, expect)
+        })
+        test('積集合', () => {
+          const given = intersection(x, y)
+          const expect = ['p-a', 'a-r', 'r-a', 'a-p']
+          assert.deepStrictEqual(given, expect)
+        })
+        test('差集合', () => {
+          const given = difference(x, y)
+          const expect = ['a-d', 'd-i', 'i-s', 's-e']
+          assert.deepStrictEqual(given, expect)
+        })
+        test(`seというbi-gramがXおよびYに含まれるかどうか調べる(Yにseが含まれていない)`, () => {
+          const given =  hasBiGram('s-e', x, y)
+          assert.deepStrictEqual(given, false)
+        })
+        test(`seというbi-gramがXおよびYに含まれるかどうか調べる(Yにseが含まれている)`, () => {
+          const given =  hasBiGram('s-e', x, x)
+          assert.deepStrictEqual(given, true)
+        })
+      })
     })
   })
   describe('07. テンプレートによる文生成', () => {
