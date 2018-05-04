@@ -80,7 +80,9 @@ export const convertBiGramByChar = (
 }
 
 export const hasBiGram = (targetStr, ...biGramArrays) => {
-  const results = biGramArrays.map(biGramArray => biGramArray.includes(targetStr))
+  const results = biGramArrays.map(biGramArray =>
+    biGramArray.includes(targetStr),
+  )
   // 全てのresults内がtrueならばtrueを返す
   // 少なくとも１つfalseが存在すればfalseを返す
   return !results.includes(false)
@@ -91,3 +93,5 @@ export const union = (x, y) => _.union(x, y)
 export const intersection = (x, y) => _.intersection(x, y)
 
 export const difference = (x, y) => _.difference(x, y)
+
+export const buildSentence = ({ x, y, z }) => `${x}時の${y}は${z}`

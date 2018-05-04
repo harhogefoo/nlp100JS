@@ -12,6 +12,7 @@ const {
   intersection,
   difference,
   hasBiGram,
+  buildSentence,
 } = require('./ch01')
 
 describe('ch01', () => {
@@ -181,19 +182,28 @@ describe('ch01', () => {
           assert.deepStrictEqual(given, expect)
         })
         test(`seというbi-gramがXおよびYに含まれるかどうか調べる(Yにseが含まれていない)`, () => {
-          const given =  hasBiGram('s-e', x, y)
+          const given = hasBiGram('s-e', x, y)
           assert.deepStrictEqual(given, false)
         })
         test(`seというbi-gramがXおよびYに含まれるかどうか調べる(Yにseが含まれている)`, () => {
-          const given =  hasBiGram('s-e', x, x)
+          const given = hasBiGram('s-e', x, x)
           assert.deepStrictEqual(given, true)
         })
       })
     })
   })
   describe('07. テンプレートによる文生成', () => {
-    test('引数x, y, zを受け取り「x時のyはz」という文字列を返す関数を実装せよ．さらに，x=12, y="気温", z=22.4として，実行結果を確認せよ．', () => {
-      assert.fail()
+    describe('引数x, y, zを受け取り「x時のyはz」という文字列を返す関数を実装せよ．さらに，x=12, y="気温", z=22.4として，実行結果を確認せよ．', () => {
+      test('12時の気温は22.4', () => {
+        const given = buildSentence({ x: '12', y: '気温', z: '22.4' })
+        const expect = '12時の気温は22.4'
+        assert.deepStrictEqual(given, expect)
+      })
+      test('暑い時の私は汗をかく', () => {
+        const given = buildSentence({ x: '暑い', y: '私', z: '汗をかく' })
+        const expect = '暑い時の私は汗をかく'
+        assert.deepStrictEqual(given, expect)
+      })
     })
   })
   describe('08. 暗号文', () => {
