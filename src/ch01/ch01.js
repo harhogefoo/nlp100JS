@@ -95,3 +95,22 @@ export const intersection = (x, y) => _.intersection(x, y)
 export const difference = (x, y) => _.difference(x, y)
 
 export const buildSentence = ({ x, y, z }) => `${x}時の${y}は${z}`
+
+export const cipher = (diffCode = 219, pattern = '^[a-z]+$') => {
+  const regex = new RegExp(pattern)
+  const fn = (str) => {
+    const charList = str.split('')
+    const encryptedCharList = charList.map(char => {
+      if (char.match(regex)) {
+        return String.fromCharCode(diffCode - char.charCodeAt(0))
+      } else {
+        return char
+      }
+    })
+    return encryptedCharList.join('')
+  }
+  return {
+    encrypt: str => fn(str),
+    decrypt: str => fn(str),
+  }
+}
